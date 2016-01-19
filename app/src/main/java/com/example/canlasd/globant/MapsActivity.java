@@ -134,10 +134,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                 for (int i = 0; i < array.length(); i++) {
                     JSONObject obj = (JSONObject) array.get(i);
-                    String pddistrict = obj.optString("pddistrict").toString();
+                    String pddistrict = obj.optString("pddistrict");
                     frequency.add(pddistrict);
 
-                    System.out.println(pddistrict);
+
 
 
                 }
