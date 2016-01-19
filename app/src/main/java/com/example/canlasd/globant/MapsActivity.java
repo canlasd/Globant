@@ -1,6 +1,5 @@
 package com.example.canlasd.globant;
 
-import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -30,6 +29,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 
+// used AppCompatActivity to show action bar
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
@@ -39,7 +39,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     ArrayList<String> frequency;
     int central, southern, bayview, mission, northern, park, richmond, ingleside, taraval, tenderloin;
     JSONArray array;
-    Bitmap oldImage, newImage;
 
 
     @Override
@@ -135,9 +134,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 for (int i = 0; i < array.length(); i++) {
                     JSONObject obj = (JSONObject) array.get(i);
                     String pddistrict = obj.optString("pddistrict");
+                    // add elements to the arraylist
                     frequency.add(pddistrict);
-
-
 
 
                 }
@@ -224,10 +222,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             return 14f;
         } else if (frequency >= 26 && frequency <= 50) {
             return 19f;
-
         } else if (frequency >= 51 && frequency <= 100) {
             return 30f;
-
         } else if (frequency >= 101 && frequency <= 150) {
             return 36f;
         } else if (frequency >= 151 && frequency <= 200) {
@@ -238,13 +234,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             return 81f;
         }
     }
-
-/*
-The marker colors should contrast between {#ff0000 (0),
- #eb3600 (14), #e54800(19), #d86d00(30), #d27f00(36), #c5a300 (50),
-  #b9c800 (65), #a6ff00 (81)} where FF0000 to #b9c800 are the most
-  reported areas, and the remaining three are #af6ff00.
- */
 
 
 }
