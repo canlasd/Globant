@@ -67,7 +67,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         // URL to get data for the next batch (if any)
         mGeoJsonUrlnext = "https://data.sfgov.org/resource/ritf-b9ki.json?$where=date>'" + thirty_days + "'&$limit=5000&$offset=5000";
-        System.out.println(mGeoJsonUrl);
 
         // create new arraylist
         frequency = new ArrayList<String>();
