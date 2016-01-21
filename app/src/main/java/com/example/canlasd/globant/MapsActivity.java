@@ -313,7 +313,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private void showDialog() {
 
         if (count > 0) {
-            increment = increment * 2;
+            increment = increment +2000;
         }
 
         count = count + 1;
