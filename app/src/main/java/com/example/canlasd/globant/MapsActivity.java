@@ -70,7 +70,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         System.out.println(mGeoJsonUrl);
 
         // create new arraylist
-
         frequency = new ArrayList<String>();
 
 
@@ -316,10 +315,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                 MapsActivity.this, R.style.MyAlertDialogStyle);
-        // set title
         alertDialogBuilder.setTitle("Do you want to add more data?");
         alertDialogBuilder.setCancelable(true);
-        // set dialog message
         alertDialogBuilder
                 .setCancelable(true)
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -329,13 +326,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                             // Download the json file
                             downloadGeoJsonFile_next.execute(mGeoJsonUrlnext);
                         } catch (Exception e) {
-                            //Exception
+
                         }
                     }
                 })
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        //do something if you need
                         dialog.cancel();
                         keepGoing = false;
                     }
@@ -355,15 +351,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                 MapsActivity.this, R.style.MyAlertDialogStyle);
-        // set title
         alertDialogBuilder.setTitle("All Available Data has been Added");
         alertDialogBuilder.setCancelable(true);
-        // set dialog message
         alertDialogBuilder
                 .setCancelable(true)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        //do something if you need
                         dialog.cancel();
                         keepGoing = false;
                     }
