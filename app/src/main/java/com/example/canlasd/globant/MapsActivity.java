@@ -50,6 +50,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     Map<String, Integer> frequency_unsorted = new HashMap<>();
     Map<String, Integer> frequency_sorted = new HashMap<>();
     boolean keepGoing = true;
+    Integer increment = 2000;
+    Integer count = 0;
 
 
     @Override
@@ -63,10 +65,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
         // URL which gets data reported from the last month
-        mGeoJsonUrl = "https://data.sfgov.org/resource/ritf-b9ki.json?$where=date>'" + thirty_days + "'&$limit=5000&$offset=0";
+        mGeoJsonUrl = "https://data.sfgov.org/resource/ritf-b9ki.json?$where=date>'" + thirty_days + "'&$limit=2000&$offset=0";
 
-        // URL to get data for the next batch (if any)
-        mGeoJsonUrlnext = "https://data.sfgov.org/resource/ritf-b9ki.json?$where=date>'" + thirty_days + "'&$limit=5000&$offset=5000";
 
         // create new arraylist
         frequency = new ArrayList<String>();
@@ -121,7 +121,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
             try {
-
+                System.out.println(params[0]);
                 URL url = new URL(params[0]);
                 URLConnection conn = url.openConnection();
                 conn.setDoOutput(true);
@@ -312,6 +312,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private void showDialog() {
 
+        if (count > 0) {
+            increment = increment * 2;
+        }
+
+        count = count + 1;
+
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                 MapsActivity.this, R.style.MyAlertDialogStyle);
         alertDialogBuilder.setTitle("Do you want to add more data?");
@@ -321,6 +327,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         try {
+
+                            // URL to get data for the next batch (if any)
+                            mGeoJsonUrlnext = "https://data.sfgov.org/resource/ritf-b9ki.json?$where=date>'" + thirty_days + "'&$limit=2000&$offset=" + increment;
+
                             DownloadGeoJsonFile downloadGeoJsonFile_next = new DownloadGeoJsonFile();
                             // Download the json file
                             downloadGeoJsonFile_next.execute(mGeoJsonUrlnext);
