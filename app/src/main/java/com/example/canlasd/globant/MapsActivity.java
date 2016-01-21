@@ -139,7 +139,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     result.append(line);
                 }
 
-                // Close the stream
+
                 reader.close();
                 stream.close();
 
@@ -337,11 +337,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     }
                 });
 
-        // create alert dialog
+
         AlertDialog alertDialog = alertDialogBuilder.create();
 
 
-        // show it
         alertDialog.show();
 
 
@@ -363,11 +362,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 });
 
 
-        // create alert dialog
         AlertDialog alertDialog = alertDialogBuilder.create();
 
 
-        // show it
         alertDialog.show();
 
 
