@@ -63,7 +63,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
         // URL which gets data reported from the last month
-
         mGeoJsonUrl = "https://data.sfgov.org/resource/ritf-b9ki.json?$where=date>'" + thirty_days + "'&$limit=5000&$offset=0";
 
         // URL to get data for the next batch (if any)
@@ -84,13 +83,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
-
-
-
-
-
-
 
 
     }
@@ -251,11 +243,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             mMap.addMarker(new MarkerOptions().position(tenderloin_pos).title("Tenderloin Station")
                     .icon(BitmapDescriptorFactory.defaultMarker((frequencyToColor(indexes.indexOf("tenderloin"))))));
 
-            if (keepGoing==true){
+            if (keepGoing == true) {
                 showDialog();
-            }
-
-            else{
+            } else {
                 showFinishDialog();
             }
 
@@ -322,7 +312,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
-    private void showDialog(){
+    private void showDialog() {
 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                 MapsActivity.this, R.style.MyAlertDialogStyle);
@@ -347,7 +337,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     public void onClick(DialogInterface dialog, int id) {
                         //do something if you need
                         dialog.cancel();
-                        keepGoing=false;
+                        keepGoing = false;
                     }
                 });
 
@@ -361,7 +351,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     }
 
-    private void showFinishDialog(){
+    private void showFinishDialog() {
 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                 MapsActivity.this, R.style.MyAlertDialogStyle);
@@ -375,7 +365,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     public void onClick(DialogInterface dialog, int id) {
                         //do something if you need
                         dialog.cancel();
-                        keepGoing=false;
+                        keepGoing = false;
                     }
                 });
 
@@ -389,8 +379,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
     }
-
-
 
 
 }
