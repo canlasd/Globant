@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Globant</string>
     <string name="title_activity_maps">Globant</string>
+    <string name="finish_dialog">All Available Data has been Added</string>
+    <string name="alert_dialog">Do You Want to Add more Data?</string>
+    <string name="OK">OK</string>
+    <string name="YES">YES</string>
+    <string name="NO">NO</string>
+
 </resources>
