@@ -1,6 +1,5 @@
 package com.example.canlasd.globant;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -11,8 +10,6 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-
-import org.json.JSONArray;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -25,23 +22,20 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     public static GoogleMap google_map;
     String thirty_days;
     String initial_url, next_url;
-    private final static String mLogTag = "GeoJsonDemo";
     public static final String URL = "https://data.sfgov.org/resource/ritf-b9ki.json?";
+    private final static String map_log = "map_log";
 
     Integer increment = 2000;
     Integer count = 0;
-    private static Context mContext;
+
 
     static ArrayList<String> frequency;
-    JSONArray array;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-
-        mContext = getApplicationContext();
 
 
         // timestamp from 30 days ago
@@ -59,7 +53,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         // create new arraylist
         frequency = new ArrayList<String>();
-        // show alert dialog
 
 
     }
@@ -74,8 +67,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         DownloadData download = new DownloadData();
         download.startDownload(initial_url);
-        showDialog();
-        // Download the json file
+        checkStatus();
 
 
     }
@@ -98,7 +90,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         count = count + 1;
 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                MapsActivity.this.getWindow().getContext(), R.style.MyAlertDialogStyle);
+                MapsActivity.this, R.style.MyAlertDialogStyle);
         alertDialogBuilder.setTitle("Do you want to add more data?");
         alertDialogBuilder.setCancelable(true);
         alertDialogBuilder
@@ -114,6 +106,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                             // Download the json file
                             download_next.startDownload(next_url);
                             checkStatus();
+
+
                         } catch (Exception e) {
 
                         }
@@ -138,7 +132,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void showFinishDialog() {
 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                MapsActivity.this.getWindow().getContext(), R.style.MyAlertDialogStyle);
+                MapsActivity.this, R.style.MyAlertDialogStyle);
         alertDialogBuilder.setTitle("All Available Data has been Added");
         alertDialogBuilder.setCancelable(true);
         alertDialogBuilder
@@ -160,14 +154,16 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     public void checkStatus() {
-        DownloadData check = new DownloadData();
+        if (DownloadData.status ==1) {
 
-        if (check.getValue() == 0) {
             showFinishDialog();
+
         } else {
             showDialog();
         }
     }
+
+
 }
 
 
