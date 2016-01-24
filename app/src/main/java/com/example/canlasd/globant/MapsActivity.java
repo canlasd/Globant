@@ -25,7 +25,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     public static final String URL = "https://data.sfgov.org/resource/ritf-b9ki.json?";
     private final static String map_log = "map_log";
 
-    Integer increment = 2000;
+    Integer increment = 1000;
     Integer count = 0;
 
 
@@ -43,7 +43,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
         // URL which gets data reported from the last month
-        initial_url = URL + "$where=date>'" + thirty_days + "'&$limit=2000&$offset=0";
+        initial_url = URL + "$where=date>'" + thirty_days + "'&$limit=1000&$offset=0";
 
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -84,7 +84,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void showDialog() {
 
         if (count > 0) {
-            increment = increment + 2000;
+            increment = increment + 1000;
         }
 
         count = count + 1;
@@ -100,7 +100,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                         try {
 
                             // URL to get data for the next batch (if any)
-                            next_url = URL + "$where=date>'" + thirty_days + "'&$limit=2000&$offset=" + increment;
+                            next_url = URL + "$where=date>'" + thirty_days + "'&$limit=1000&$offset=" + increment;
 
                             DownloadData download_next = new DownloadData();
                             // Download the json file
@@ -154,7 +154,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     public void checkStatus() {
-        if (DownloadData.status ==1) {
+        if (DownloadData.status >0) {
 
             showFinishDialog();
 
