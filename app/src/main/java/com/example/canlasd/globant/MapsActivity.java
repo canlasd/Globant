@@ -43,9 +43,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+        SupportMapFragment map_fragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+        map_fragment.getMapAsync(this);
 
 
         // create new arraylist
@@ -73,10 +73,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
     private String getPreviousStamp() {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        DateFormat date_format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
         Calendar now = Calendar.getInstance();
         now.add(Calendar.DATE, -30);
-        return dateFormat.format(now.getTime());
+        return date_format.format(now.getTime());
     }
 
     private void showDialog() {
@@ -87,11 +87,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         count = count + 1;
 
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+        AlertDialog.Builder alert_dialog = new AlertDialog.Builder(
                 MapsActivity.this, R.style.MyAlertDialogStyle);
-        alertDialogBuilder.setTitle(R.string.alert_dialog);
-        alertDialogBuilder.setCancelable(true);
-        alertDialogBuilder
+        alert_dialog.setTitle(R.string.alert_dialog);
+        alert_dialog.setCancelable(true);
+        alert_dialog
                 .setCancelable(true)
                 .setPositiveButton(R.string.YES, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
@@ -122,21 +122,21 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 });
 
 
-        AlertDialog alertDialog = alertDialogBuilder.create();
+        AlertDialog continue_dialog = alert_dialog.create();
 
 
-        alertDialog.show();
+        continue_dialog.show();
 
 
     }
 
     private void showFinishDialog() {
 
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+        AlertDialog.Builder alert_dialog = new AlertDialog.Builder(
                 MapsActivity.this, R.style.MyAlertDialogStyle);
-        alertDialogBuilder.setTitle(R.string.finish_dialog);
-        alertDialogBuilder.setCancelable(true);
-        alertDialogBuilder
+        alert_dialog.setTitle(R.string.finish_dialog);
+        alert_dialog.setCancelable(true);
+        alert_dialog
                 .setCancelable(true)
                 .setPositiveButton(R.string.OK, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
@@ -146,10 +146,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 });
 
 
-        AlertDialog alertDialog = alertDialogBuilder.create();
+        AlertDialog finish_dialog = alert_dialog.create();
 
 
-        alertDialog.show();
+        finish_dialog.show();
 
 
     }
