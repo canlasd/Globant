@@ -4,7 +4,6 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -20,15 +19,12 @@ import java.util.Calendar;
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     public static GoogleMap google_map;
-    String thirty_days;
-    String initial_url, next_url;
-    public static final String URL = "https://data.sfgov.org/resource/ritf-b9ki.json?";
-    private final static String map_log = "map_log";
-
-    Integer increment = 1000;
-    Integer count = 0;
-
-
+    private String thirty_days;
+    private String initial_url;
+    private String next_url;
+    private static final String URL = "https://data.sfgov.org/resource/ritf-b9ki.json?";
+    private Integer increment = 1000;
+    private Integer count = 0;
     static ArrayList<String> frequency;
 
 
@@ -51,8 +47,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+
         // create new arraylist
-        frequency = new ArrayList<String>();
+        frequency = new ArrayList<>();
 
 
     }
@@ -65,23 +62,24 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         LatLng san_francisco = new LatLng(37.76, -122.44);
         google_map.moveCamera(CameraUpdateFactory.newLatLngZoom(san_francisco, 12));
 
-        DownloadData download = new DownloadData();
-        download.startDownload(initial_url);
+        // download data from url
+        DownloadData download_initial = new DownloadData();
+        download_initial.startDownload(initial_url);
+        // check if we need to continue
         checkStatus();
 
 
     }
 
 
-    public String getPreviousStamp() {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");//2015-01-10T12:00:00
+    private String getPreviousStamp() {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
         Calendar now = Calendar.getInstance();
         now.add(Calendar.DATE, -30);
-        String thirty = dateFormat.format(now.getTime());
-        return thirty;
+        return dateFormat.format(now.getTime());
     }
 
-    public void showDialog() {
+    private void showDialog() {
 
         if (count > 0) {
             increment = increment + 1000;
@@ -91,29 +89,32 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                 MapsActivity.this, R.style.MyAlertDialogStyle);
-        alertDialogBuilder.setTitle("Do you want to add more data?");
+        alertDialogBuilder.setTitle(R.string.alert_dialog);
         alertDialogBuilder.setCancelable(true);
         alertDialogBuilder
                 .setCancelable(true)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.YES, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         try {
 
                             // URL to get data for the next batch (if any)
-                            next_url = URL + "$where=date>'" + thirty_days + "'&$limit=1000&$offset=" + increment;
+                            next_url = URL + "$where=date>'" + thirty_days +
+                                    "'&$limit=1000&$offset=" + increment;
+
 
                             DownloadData download_next = new DownloadData();
-                            // Download the json file
                             download_next.startDownload(next_url);
+
+
                             checkStatus();
 
 
-                        } catch (Exception e) {
+                        } catch (Exception ignored) {
 
                         }
                     }
                 })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.NO, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
 
@@ -129,15 +130,15 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     }
 
-    public void showFinishDialog() {
+    private void showFinishDialog() {
 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                 MapsActivity.this, R.style.MyAlertDialogStyle);
-        alertDialogBuilder.setTitle("All Available Data has been Added");
+        alertDialogBuilder.setTitle(R.string.finish_dialog);
         alertDialogBuilder.setCancelable(true);
         alertDialogBuilder
                 .setCancelable(true)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.OK, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
 
@@ -153,18 +154,36 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     }
 
-    public void checkStatus() {
-        if (DownloadData.status >0) {
+    private void checkStatus() {
+        if (DownloadData.status > 0) {
 
             showFinishDialog();
 
         } else {
             showDialog();
         }
+
+    }
+
+
+    public void onResume() {
+        super.onResume();
+        DownloadData.status = 0;
+
+
     }
 
 
 }
+
+
+
+
+
+
+
+
+
 
 
 
